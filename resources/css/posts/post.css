@@ -1,0 +1,42 @@
+/* Estilos para la tabla de productos */
+#products-table {
+    font-size: 0.9rem;
+}
+
+#products-table thead th {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+#products-table tbody tr:hover {
+    background-color: #e7f1ff;
+}
+
+/* Badges personalizados */
+.badge {
+    font-size: 0.85em;
+    padding: 0.5em 0.75em;
+}
+
+/* Botones de acción */
+.btn-group .btn {
+    padding: 0.25rem 0.5rem;
+}
+
+/* Responsive: ocultar descripción en móviles */
+@media (max-width: 768px) {
+    #products-table td small {
+        display: none;
+    }
+}
+
+/* Animación para alertas */
+.alert {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -4,14 +4,17 @@ namespace App\Services\Post;
 use App\Models\Post;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+use Illuminate\Database\Eloquent\Collection;
+
+
 class PostService {
 
-    public function getAll(): LengthAwarePaginator
+    public function getAll(): Collection
     {
 
-        $query = Post::query();
-
-        return $query->paginate(Post::PAGINATE);
+        return Post::with('category')
+            ->orderBy('Nombre_Producto')
+            ->get();
     }
 
     public function create(array $data): Post
