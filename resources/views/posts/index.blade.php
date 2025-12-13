@@ -76,7 +76,5 @@
         </div>
     </div>
 
-    <x-slot:scripts>
-        <script src="{{ asset('js/posts/index.js') }}"></script>
-    </x-slot:scripts>
+    @vite ('resources/js/posts/index.js')
 </x-layout>
