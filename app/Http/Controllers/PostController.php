@@ -60,7 +60,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $post = $this->service->find($post->id);
+        $categories = Category::orderBy('name')->get();
+
+        return view('posts.form', compact('post', 'categories'));
     }
 
     /**

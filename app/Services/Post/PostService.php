@@ -17,6 +17,10 @@ class PostService {
             ->get();
     }
 
+    public function find (int $id): Post {
+        return Post::findOrFail($id);
+    }
+
     public function create(array $data): Post
     {
         return Post::create($data);
