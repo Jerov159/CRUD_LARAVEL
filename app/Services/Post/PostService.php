@@ -35,4 +35,37 @@ class PostService {
     {
         return $post->delete();
     }
+
+    public function getStats(): array
+    {
+        return [
+            'total_products' => Post::count(),
+            'low_stock' => Post::whereColumn('Cantidad', '<=', 'stock_minimo')->count(),
+            'out_of_stock' => Post::where('Cantidad', 0)->count(),
+            'about_to_expire' => Post::whereNotNull('fecha_vencimiento')
+                ->whereBetween('fecha_vencimiento', [now(), now()->addDays(30)])
+                ->count(),
+            'expired' => Post::whereNotNull('fecha_vencimiento')
+                ->where('fecha_vencimiento', '<', now())
+                ->count(),
+            'total_value' => Post::selectRaw('SUM(Precio_por_unidad * Cantidad) as total')
+                ->value('total') ?? 0,
+        ];
+    }
+
+    /**
+     * Productos que requieren atención
+     */
+    public function getAlerts(): Collection
+    {
+        return Post::with('category')
+            ->where(function ($query) {
+                $query->whereColumn('Cantidad', '<=', 'stock_minimo')
+                    ->orWhere(function ($q) {
+                        $q->whereNotNull('fecha_vencimiento')
+                            ->where('fecha_vencimiento', '<=', now()->addDays(30));
+                    });
+            })
+            ->get();
+    }
 }
