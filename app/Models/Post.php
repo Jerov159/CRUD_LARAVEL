@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -25,6 +27,12 @@ class Post extends Model
         'requiere_receta',
         'Estado',
         'category_id',
+    ];
+
+    protected $casts = [
+        'fecha_vencimiento' => 'date',
+        'Precio_por_unidad' => 'decimal:2',
+        'requiere_receta' => 'boolean',
     ];
 
     public function category()

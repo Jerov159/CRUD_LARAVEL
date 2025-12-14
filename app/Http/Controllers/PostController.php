@@ -21,8 +21,9 @@ class PostController extends Controller
     public function index()
     {
         $posts = $this->service->getAll();
+        $stats = $this->service->getStats();
 
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts', 'stats'));
     }
 
     /**
